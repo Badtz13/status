@@ -1,6 +1,9 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
+
+const keys = require('./keys.json');
+const client = require('discord-rich-presence')(keys.discord);
 
 function createWindow () {
   // Create the browser window.
@@ -8,7 +11,10 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
     }
   })
 
@@ -16,7 +22,7 @@ function createWindow () {
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -41,3 +47,20 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+function setActivity(data) {
+  console.log(data);
+  client.updatePresence({
+    details: 'details here',
+    state: 'state here',
+    startTimestamp: Date.now(),
+    largeImageKey: 'eollgurxcaeuata',
+    // smallImageKey: 'snek_small',
+    instance: true,
+});
+}
+
+ipcMain.on('update', (event, arg) => {
+  setActivity(arg);
+  event.returnValue = 'true'
+})
