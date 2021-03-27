@@ -5,12 +5,42 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <title>Status</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h1>Set Status</h1>
 
-    <button id="go">hola?</button>
+    <form action="">
+
+      <div>
+        <label for="details">Status</label>
+        <input type="text" id="details">
+      </div>
+
+      <div>
+        <label for="state">Details</label>
+        <input type="text" id="state">
+      </div>
+
+      <div>
+        <div>Time Display</div>
+        <label for="hide">Don't Show time</label>
+        <input type="radio" name="time" id="hide" checked>
+
+        <label for="start">Show time started</label>
+        <input type="radio" name="time" id="start">
+
+        <label for="end">Show time left</label>
+        <input type="radio" name="time" id="end">
+
+      </div>
+
+      <label for="endTime">End Timestamp</label>
+      <input type="time" id="endTime">
+
+      <button type="submit" id="submit">Set Status</button>
+    </form>
 
     <script src="renderer.js"></script>
   </body>

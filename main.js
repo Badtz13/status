@@ -8,8 +8,9 @@ const client = require('discord-rich-presence')(keys.discord);
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1400,
+    height: 800,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -50,14 +51,7 @@ app.on('window-all-closed', function () {
 
 function setActivity(data) {
   console.log(data);
-  client.updatePresence({
-    details: 'details here',
-    state: 'state here',
-    startTimestamp: Date.now(),
-    largeImageKey: 'eollgurxcaeuata',
-    // smallImageKey: 'snek_small',
-    instance: true,
-});
+  client.updatePresence(data);
 }
 
 ipcMain.on('update', (event, arg) => {
